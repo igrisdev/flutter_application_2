@@ -3,7 +3,14 @@ import 'package:flutter_application_2/core/app_colors.dart';
 import 'package:flutter_application_2/core/text_styles.dart';
 
 class HeightSelector extends StatefulWidget {
-  const HeightSelector({super.key});
+  final double selectedHeight;
+  final Function onHeightChange;
+
+  const HeightSelector({
+    super.key,
+    required this.selectedHeight,
+    required this.onHeightChange,
+  });
 
   @override
   State<HeightSelector> createState() => _HeightSelectorState();
@@ -41,7 +48,6 @@ class _HeightSelectorState extends State<HeightSelector> {
               },
               min: 150,
               max: 220,
-              divisions: 1,
               label: "$height",
               activeColor: AppColors.primary,
             ),
