@@ -81,13 +81,18 @@ class _ImcHomeScreenState extends State<ImcHomeScreen> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ImcResultScreen()),
+                  MaterialPageRoute(
+                    builder: (context) => ImcResultScreen(
+                      height: selectedHeight,
+                      weight: selectedWeight,
+                    ),
+                  ),
                 );
               },
               style: ButtonStyle(
                 shape: WidgetStateProperty.all(
                   RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(8),
                   ),
                 ),
                 backgroundColor: WidgetStateProperty.all(AppColors.primary),
