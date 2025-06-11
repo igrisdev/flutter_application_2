@@ -23,6 +23,9 @@ class ImcResultScreen extends StatelessWidget {
   }
 
   Padding bodyResult(context) {
+    double fixedHeight = height / 100;
+    double imcResult = weight / (fixedHeight * fixedHeight);
+
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -36,7 +39,6 @@ class ImcResultScreen extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(top: 16, bottom: 16),
@@ -46,7 +48,39 @@ class ImcResultScreen extends StatelessWidget {
                   color: AppColors.backgroundComponent,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: Text("f"),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      getTitleByWeight(imcResult).toUpperCase(),
+                      style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.w600,
+                        color: getColorByWeight(imcResult),
+                      ),
+                    ),
+                    Text(
+                      imcResult.toStringAsFixed(2),
+                      style: TextStyle(
+                        fontSize: 56,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8, right: 8),
+                      child: Text(
+                        getDescriptionByWeight(imcResult),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 26,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -90,5 +124,35 @@ class ImcResultScreen extends StatelessWidget {
       backgroundColor: AppColors.primary,
       foregroundColor: Colors.white,
     );
+  }
+
+  Color getColorByWeight(double imcResult) {
+    return switch (imcResult) {
+      < 18.5 => Colors.blue, // IMC Bajo
+      < 24.9 => Colors.green, // IMC Normal
+      < 29.9 => Colors.orange, // Sobrepeso
+      _ => Colors.red, // Obesidad
+    };
+  }
+
+  String getTitleByWeight(double imcResult) {
+    return switch (imcResult) {
+      < 18.5 => "Imc Bajo",
+      < 24.9 => "Imc Normal",
+      < 29.9 => "Sobrepeso",
+      _ => "Obesidad",
+    };
+  }
+
+  String getDescriptionByWeight(double imcResult) {
+    return switch (imcResult) {
+      < 18.5 =>
+        "Tu IMC es bajo, no es recomendable realizar ejercicios de alto impacto.",
+      < 24.9 => "Tu IMC es normal, puedes realizar ejercicios de alto impacto.",
+      < 29.9 =>
+        "Tu IMC es sobrepeso, puedes realizar ejercicios de alto impacto.",
+      _ =>
+        "Tu IMC es obesidad, no es recomendable realizar ejercicios de alto impacto.",
+    };
   }
 }
