@@ -4,7 +4,7 @@ import 'package:flutter_application_2/core/text_styles.dart';
 
 class HeightSelector extends StatefulWidget {
   final double selectedHeight;
-  final Function onHeightChange;
+  final Function(double) onHeightChange;
 
   const HeightSelector({
     super.key,
@@ -17,8 +17,6 @@ class HeightSelector extends StatefulWidget {
 }
 
 class _HeightSelectorState extends State<HeightSelector> {
-  double height = 170; // altura inicial
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -32,7 +30,7 @@ class _HeightSelectorState extends State<HeightSelector> {
           children: [
             Text("Altura".toUpperCase(), style: TextStyles.bodyText),
             Text(
-              "${height.toStringAsFixed(0)} cm",
+              "${widget.selectedHeight.toStringAsFixed(0)} cm",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 38,
@@ -40,15 +38,13 @@ class _HeightSelectorState extends State<HeightSelector> {
               ),
             ),
             Slider(
-              value: height,
+              value: widget.selectedHeight,
               onChanged: (value) {
-                setState(() {
-                  height = value;
-                });
+                widget.onHeightChange(value);
               },
               min: 150,
               max: 220,
-              label: "$height",
+              label: "${widget.selectedHeight}",
               activeColor: AppColors.primary,
             ),
           ],
