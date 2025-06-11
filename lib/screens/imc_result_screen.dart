@@ -22,7 +22,7 @@ class ImcResultScreen extends StatelessWidget {
     );
   }
 
-  Padding bodyResult(context) {
+  Padding bodyResult(BuildContext context) {
     double fixedHeight = height / 100;
     double imcResult = weight / (fixedHeight * fixedHeight);
 
@@ -84,22 +84,14 @@ class ImcResultScreen extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
-            height: 60,
-            width: double.infinity,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 16),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16),
+            child: SizedBox(
+              height: 60,
+              width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ImcHomeScreen(
-                        // height: selectedHeight,
-                        // weight: selectedWeight,
-                      ),
-                    ),
-                  );
+                  Navigator.pop(context);
                 },
                 style: ButtonStyle(
                   shape: WidgetStateProperty.all(
@@ -109,7 +101,7 @@ class ImcResultScreen extends StatelessWidget {
                   ),
                   backgroundColor: WidgetStateProperty.all(AppColors.primary),
                 ),
-                child: Text('Calcular', style: TextStyles.bodyText),
+                child: Text('Volver', style: TextStyles.bodyText),
               ),
             ),
           ),
